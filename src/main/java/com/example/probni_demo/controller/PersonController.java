@@ -1,6 +1,6 @@
 package com.example.probni_demo.controller;
 
-import com.example.probni_demo.exceptions.BadPersonNumberException;
+import com.example.probni_demo.domain.Person;
 import com.example.probni_demo.service.PersonService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,12 +17,25 @@ public class PersonController {
     @GetMapping("/person")
     public String detPersonInfo(@RequestParam Integer number){
         final String person;
-        try {
             person = personService.getPerson(number);
-        } catch (BadPersonNumberException e) {
-            throw new RuntimeException(e);
-        }
         return person;
+    }
+
+//    /person/add?name=pi&surname=li&passport=99999&profession=2
+    @GetMapping("/person/add")
+    public String addPerson(@RequestParam String name,
+                            @RequestParam String surname,
+                            @RequestParam String passport,
+                            @RequestParam Integer profession
+                            ){
+        Person person = new Person(
+                name,
+                surname,
+                passport,
+                profession
+        );
+        personService.addPerson(person);
+        return "Person added";
     }
 
 }

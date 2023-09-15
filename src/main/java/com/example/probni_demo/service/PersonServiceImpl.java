@@ -6,9 +6,12 @@ import com.example.probni_demo.domain.TruskDriver;
 import com.example.probni_demo.exceptions.BadPersonNumberException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PersonServiceImpl implements PersonService {
-    Person[] persons = {
+    List<Person> persons = new ArrayList<>( List.of(
             new Person(
                     "Жан",
                     "Рено",
@@ -36,29 +39,34 @@ public class PersonServiceImpl implements PersonService {
             "1000",
             "2345",
             4)
-    };
-    String[] professions = {
+    ));
+    List<String> professions = new ArrayList<>(List.of(
             "безработный",
             "водитель",
             "плотник",
-            "столяр",
-    };
+            "столяр"
+            ));
 
     @Override
     public String getPerson(Integer number) {
         final Person person;
-        if (number >= persons.length) {
+        if (number >= persons.size()) {
             throw new BadPersonNumberException("Ошибка в том что номер человека заведомо больше");
         }
 
-        person = persons[number];
+        person = persons.get(number);
 
         final String personDescripition = ""
                 + person.getName() + " "
                 + person.getSurname() + " "
                 + person.getPassport() + " "
-                + professions[person.getProfessionNumber()];
+                + professions.get(person.getProfessionNumber());
         return personDescripition;
+    }
+
+    @Override
+    public void addPerson(Person person) {
+        persons.add(person);
     }
 
 }
