@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+//@Service
 public class PersonServiceImpl implements PersonService {
     List<Person> persons = new ArrayList<>( List.of(
             new Person(
