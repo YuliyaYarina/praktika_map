@@ -3,7 +3,6 @@ package com.example.probni_demo.service.impl;
 import com.example.probni_demo.domain.Driver;
 import com.example.probni_demo.domain.Person;
 import com.example.probni_demo.domain.TruskDriver;
-import com.example.probni_demo.exceptions.BadPersonNumberException;
 import com.example.probni_demo.service.PersonService;
 
 import java.util.ArrayList;
@@ -41,55 +40,45 @@ public class PersonServiceImpl implements PersonService {
                     2),
             "1000",
             new TruskDriver(
-            "Жерар",
-            "Депардье",
-            "1000",
-            "2345",
-            4)
+                    "Жерар",
+                    "Депардье",
+                    "1000",
+                    "2345",
+                    4)
     ));
     List<String> professions = new ArrayList<>(List.of(
             "безработный",
             "водитель",
             "плотник",
-            "столяр"
-            ));
-
-    @Override
-    public String getPerson(Integer number) {
-        final Person person;
-        if (number >= persons.size()) {
-            throw new BadPersonNumberException("Ошибка в том что номер человека заведомо больше");
-        }
-
-        person = persons.get(number);
-
-        final String personDescripition = ""
-                + person.getName() + " "
-                + person.getSurname() + " "
-                + person.getPassport() + " "
-                + professions.get(person.getProfessionNumber());
-        return personDescripition;
-    }
+            "столяр",
+            "актер"
+    ));
 
     @Override
     public void addPerson(Person person) {
-        persons.put(person.getPassport(),person);
+        persons.put(person.getPassport(), person);
     }
 
     @Override
     public String getPersonByPassport(String passport) {
-        for (Person person : persons.values()) {
-            if (person.getPassport().equals(passport)) {
-                final String personDescripition = ""
-                        + person.getName() + " "
-                        + person.getSurname() + " "
-                        + person.getPassport() + " "
-                        + professions.get(person.getProfessionNumber());
-                return personDescripition;
-            }
-        }
+        final Person person = persons.get(passport);
+        if (person == null) {
         throw new RuntimeException("человек с таким номером паспорта не найден");
-
+        }
+        final String personDescripition = " "
+                + person.getName() + " "
+                + person.getSurname() + " "
+                + person.getPassport() + " "
+                + getProfessionNames(person.getProfessionNumbers());
+        return personDescripition;
+    }
+    @Override
+    public String getProfessionNames(List<Integer> professionNumbers) {
+        String result = "";
+        for (Integer professionNumber : professionNumbers) {
+            result = result + " " + professions.get(professionNumber);
+        }
+        return result;
     }
 
 }
