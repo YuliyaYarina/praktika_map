@@ -6,10 +6,14 @@ public class Employee {
 
     private final String firstName;
     private final String lastName;
+    private final Integer selary;
+    private final Integer department;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, int selary, int department) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.selary = selary;
+        this.department = department;
     }
 
     public String getFirstName() {
@@ -20,11 +24,12 @@ public class Employee {
         return lastName;
     }
 
-    @Override
-    public String toString() {
-        return "Employee " +
-                "firstName= " + firstName  +
-                ", lastName= " + lastName + '\'' ;
+    public int getSelary() {
+        return selary;
+    }
+
+    public int getDepartment() {
+        return department;
     }
 
     @Override
@@ -32,11 +37,21 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+        return selary == employee.selary && department == employee.department && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(firstName, lastName, selary, department);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", selary=" + selary +
+                ", department=" + department +
+                '}';
     }
 }

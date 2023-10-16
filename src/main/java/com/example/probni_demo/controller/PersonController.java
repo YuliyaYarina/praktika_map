@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 //@RestController
 public class PersonController {
     private final PersonService personService;
@@ -22,6 +24,12 @@ public class PersonController {
         return person;
     }
 
+    @GetMapping("/person/by-passport")
+    public String detPersonInfo(@RequestParam String passport){
+        return personService.getPersonByPassport(passport);
+    }
+
+
 //    /person/add?name=pi&surname=li&passport=99999&profession=2
     @GetMapping("/person/add")
     public String addPerson(@RequestParam String name,
@@ -37,6 +45,10 @@ public class PersonController {
         );
         personService.addPerson(person);
         return "Person added";
+    }
+
+    public void getByProfessions() {
+        personService.getPersonsByProfessions(List.of(1,3));
     }
 
 }

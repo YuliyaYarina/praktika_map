@@ -1,38 +1,45 @@
-package com.example.probni_demo.service;
+package com.example.probni_demo.service.impl;
 
 import com.example.probni_demo.domain.Driver;
 import com.example.probni_demo.domain.Person;
 import com.example.probni_demo.domain.TruskDriver;
 import com.example.probni_demo.exceptions.BadPersonNumberException;
-import org.springframework.stereotype.Service;
+import com.example.probni_demo.service.PersonService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //@Service
 public class PersonServiceImpl implements PersonService {
-    List<Person> persons = new ArrayList<>( List.of(
+    Map<String, Person> persons = new HashMap<>(Map.of(
+            "12345",
             new Person(
                     "Жан",
                     "Рено",
                     "12345",
                     2),
+            "54321",
             new Person(
                     "Люк",
                     "Бессон",
                     "54321",
                     3),
+            "41232",
             new Person(
                     "Жерар",
                     "Депардье",
                     "41232",
                     0),
+            "928374",
             new Driver(
                     "Джейсон",
                     "Стетхем",
                     "928374",
                     "3491",
                     2),
+            "1000",
             new TruskDriver(
             "Жерар",
             "Депардье",
@@ -66,7 +73,23 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void addPerson(Person person) {
-        persons.add(person);
+        persons.put(person.getPassport(),person);
+    }
+
+    @Override
+    public String getPersonByPassport(String passport) {
+        for (Person person : persons.values()) {
+            if (person.getPassport().equals(passport)) {
+                final String personDescripition = ""
+                        + person.getName() + " "
+                        + person.getSurname() + " "
+                        + person.getPassport() + " "
+                        + professions.get(person.getProfessionNumber());
+                return personDescripition;
+            }
+        }
+        throw new RuntimeException("человек с таким номером паспорта не найден");
+
     }
 
 }

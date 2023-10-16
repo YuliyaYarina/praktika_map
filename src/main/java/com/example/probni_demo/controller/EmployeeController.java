@@ -27,12 +27,16 @@ public class EmployeeController {
     }
     @GetMapping("/add")
     public String addEmployee(@RequestParam String firstName,
-                              @RequestParam String lastName
+                              @RequestParam String lastName,
+                              @RequestParam Integer selary,
+                              @RequestParam Integer department
     ){
 
         Employee employee = new Employee(
                 firstName,
-                lastName
+                lastName,
+                selary,
+                department
         );
         try {
         employeeService.addEmployee(employee);
@@ -43,18 +47,23 @@ public class EmployeeController {
         }
         final String emplN = ""
                 + employee.getLastName() + " "
-                + employee.getLastName();
+                + employee.getLastName() + " "
+                + employee.getSelary() + " "
+                + employee.getDepartment();
         return emplN;
     }
 
     @GetMapping("/remove")
-    public String removeEmployee(@RequestParam
-                                 String firstName,
-                                 String lastName
+    public String removeEmployee(@RequestParam String firstName,
+                                 @RequestParam String lastName,
+                                 @RequestParam Integer selary,
+                                 @RequestParam Integer department
     ){
         Employee employee = new Employee(
                 firstName,
-                lastName
+                lastName,
+                selary,
+                department
         );
 
         try {
@@ -63,19 +72,24 @@ public class EmployeeController {
             return "Удаляемого сотрудника и так нет";
         }
         final String emplN = ""
-                + employee.getFirstName() + " "
-                + employee.getLastName();
+                + employee.getLastName() + " "
+                + employee.getLastName() + " "
+                + employee.getSelary() + " "
+                + employee.getDepartment();
         return emplN;
     }
 
     @GetMapping("/find")
-    public String findEmployee(@RequestParam
-                                 String firstName,
-                               String lastName
+    public String findEmployee(@RequestParam String firstName,
+                               @RequestParam String lastName,
+                               @RequestParam Integer selary,
+                               @RequestParam Integer department
     ){
         Employee employee = new Employee(
                 firstName,
-                lastName
+                lastName,
+                selary,
+                department
         );
         try {
             employeeService.searchEmployee(employee);
@@ -83,8 +97,10 @@ public class EmployeeController {
             return "сотрудника нет";
         }
         final String emplN = ""
-                + employee.getFirstName() + " "
-                + employee.getLastName();
+                + employee.getLastName() + " "
+                + employee.getLastName() + " "
+                + employee.getSelary() + " "
+                + employee.getDepartment();
         return emplN;
 
     }
