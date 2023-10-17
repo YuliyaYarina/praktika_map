@@ -4,13 +4,11 @@ import com.example.probni_demo.domain.Driver;
 import com.example.probni_demo.domain.Person;
 import com.example.probni_demo.domain.TruskDriver;
 import com.example.probni_demo.service.PersonService;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-//@Service
+@Service
 public class PersonServiceImpl implements PersonService {
     Map<String, Person> persons = new HashMap<>(Map.of(
             "12345",
@@ -58,6 +56,14 @@ public class PersonServiceImpl implements PersonService {
     public void addPerson(Person person) {
         persons.put(person.getPassport(), person);
     }
+@Override
+    public void addProfession(String passport, Integer profession){
+        Person person = persons.get(passport);
+        if (person == null) {
+            throw new RuntimeException("человек с таким номером паспорта не найден");
+        }
+        person.getProfessionNumbers().add(profession);
+    }
 
     @Override
     public String getPersonByPassport(String passport) {
@@ -72,8 +78,9 @@ public class PersonServiceImpl implements PersonService {
                 + getProfessionNames(person.getProfessionNumbers());
         return personDescripition;
     }
+
     @Override
-    public String getProfessionNames(List<Integer> professionNumbers) {
+    public String getProfessionNames(Set<Integer> professionNumbers) {
         String result = "";
         for (Integer professionNumber : professionNumbers) {
             result = result + " " + professions.get(professionNumber);

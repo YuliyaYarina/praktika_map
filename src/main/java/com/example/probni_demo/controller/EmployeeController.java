@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-@RestController
-@RequestMapping("/employee")
+//@RestController
+//@RequestMapping("/employee")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -21,11 +21,11 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping
+//    @GetMapping
     public List<Employee> allEmployee() {
         return employeeService.allEmployee();
     }
-    @GetMapping("/add")
+//    @GetMapping("/add")
     public String addEmployee(@RequestParam String firstName,
                               @RequestParam String lastName,
                               @RequestParam Integer selary,
@@ -53,7 +53,7 @@ public class EmployeeController {
         return emplN;
     }
 
-    @GetMapping("/remove")
+//    @GetMapping("/remove")
     public String removeEmployee(@RequestParam String firstName,
                                  @RequestParam String lastName,
                                  @RequestParam Integer selary,
@@ -79,7 +79,7 @@ public class EmployeeController {
         return emplN;
     }
 
-    @GetMapping("/find")
+//    @GetMapping("/find")
     public String findEmployee(@RequestParam String firstName,
                                @RequestParam String lastName,
                                @RequestParam Integer selary,

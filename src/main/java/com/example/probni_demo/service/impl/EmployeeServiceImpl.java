@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+//@Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final int STORAGE_SIZE =3;
    private final List<Employee> employees = new ArrayList<>();
 
-    @Override
+//    @Override
     public Employee addEmployee(Employee employee) {
 
         if (employees.size() > STORAGE_SIZE ) {
@@ -30,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
-    @Override
+//    @Override
     public Employee removeEmployee(Employee employee) {
 
         if (!employees.contains(employee)) {
@@ -42,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    @Override
+//    @Override
     public String searchEmployee(Employee employee) {
       if (employees.contains(employee)){
           return " сотрудник " + employee + " найден" ;
@@ -51,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
       }
     }
 
-    @Override
+//    @Override
     public List<Employee> allEmployee() {
         return employees;
         }

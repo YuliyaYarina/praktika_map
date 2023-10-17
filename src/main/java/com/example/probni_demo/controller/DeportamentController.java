@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@RestController
-@RequestMapping("/departments")
+//@RestController
+//@RequestMapping("/departments")
 public class DeportamentController {
 
     private final EmployeeService employeeService;
@@ -20,27 +20,27 @@ public class DeportamentController {
     }
 
 //        /departments/max-salary?departmentId=5
-    @GetMapping("/max-salary")
+//    @GetMapping("/max-salary")
         public String maxSalary(@RequestParam Integer departmentId) {
 
         return "Сотрудник с макс ЗП: " + minSalary(departmentId) ;
     }
 
 // /departments/min-salary?departmentId=5
-    @GetMapping("/min-salary")
+//    @GetMapping("/min-salary")
     public String minSalary(@RequestParam Integer departmentId) {
 
         return "Сотрудник с мин ЗП: " + minSalary(departmentId);
     }
 
 ///departments/all?departmentId=5
-    @GetMapping("/all")
+//    @GetMapping("/all")
     public String allSelary(@RequestParam Integer departmentId) {
 
         return " Все сотрудники по отделу";
     }
 
-    @GetMapping("/all")
+//    @GetMapping("/all")
     public String all() {
 
         return " Все сотрудники по отделам";
