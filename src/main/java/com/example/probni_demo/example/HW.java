@@ -2,6 +2,7 @@ package com.example.probni_demo.example;
 
 import java.util.*;
 
+
 public class HW {
     public static void main(String[] args){
 
@@ -16,7 +17,7 @@ public class HW {
         System.out.println();
 
         System.out.println("task3");
-        Set<String> stringSet = new HashSet<>(List.of("ya", "mi", "bobo","mi","tt"));
+        List<String> stringSet = new ArrayList<>(List.of("ya", "mi", "bobo", "mi", "tt", "ya"));
         task3(stringSet);
         System.out.println();
 
@@ -26,26 +27,43 @@ public class HW {
         System.out.println();
     }
     public static void task1(List<Integer> nums) {
-        for (Integer i : nums) {
-            if (!((i % 2) == 0)) {
-                System.out.print( i + ",");
-            }
-        }
+
+//        for (Integer i : nums) {
+//            if (!((i % 2) == 0)) {
+//                System.out.print( i + ",");
+//            }
+//        }
+        nums.removeIf(e -> e % 2 == 0);
+        System.out.println(nums);
+
     }
 
     public static void task2 (Set<Integer> numsSet) {
-        for (Integer i : numsSet) {
-            if (((i % 2) == 0)) {
-                System.out.print( i + ",");
-            }
-        }
+
+        numsSet.removeIf(e -> e % 2 == 1 );
+        System.out.println(numsSet);
     }
-    public static void task3(Set<String> list) {
-       Set<String> uniqe = new HashSet<>(list);
-                System.out.print(uniqe);
+
+    public static void task3(List<String> list) {
+//        Stream.of(list)
+//                .forEach(System.out::println);
+        list.stream()
+                .distinct()
+                .forEach(System.out::println);
+
+//       Set<String> uniqe = new HashSet<>(list);
+//                System.out.print(uniqe);
     }
     public static void task4(List<String> stringsMap) {
+
+//long optional = Optional.of(stringsMap).stream().count();
+//        stringsMap.stream()
+//                .map(e->e.toString())
+//                .count();
+//        System.out.println(optional);
+
         Map<String,Integer> map = new HashMap<>();
+
         for (String i : stringsMap) {
             if (map.containsKey(i)){
                 map.put(i,map.get(i) +1);

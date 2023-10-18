@@ -4,20 +4,21 @@ import com.example.probni_demo.domain.Employee;
 import com.example.probni_demo.service.EmployeeSelaryService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
+import java.util.stream.Stream;
+//@Service
 public class DeportamentServiceImpl
-//        implements EmployeeSelaryService
+        implements EmployeeSelaryService
 {
 
-//    private final List<Employee> deportament = new ArrayList<>();
-//
-//@Override
-//    public List<Integer> maxSalary(Integer departmentId){
-//
+    private final List<Employee> deportament = new ArrayList<>();
+
+@Override
+    public List<Integer> maxSalary(Integer departmentId){
+
+    int max = Stream.of(departmentId)
+            .max(Comparator.naturalOrder())
+            .get();
 //        Map<Integer, Integer> deportament = new HashMap<>();
 //
 //        Employee employee = null;
@@ -29,8 +30,9 @@ public class DeportamentServiceImpl
 //            }
 //        }
 //        return departmentId;
-//    }
-//
+    return Collections.singletonList(max);
+    }
+
 //    @Override
 //    public Map<Integer,Integer> minSalary(Integer departmentId) {
 //

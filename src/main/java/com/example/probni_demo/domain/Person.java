@@ -31,4 +31,11 @@ public class Person {
         return professionNumbers;
     }
 
+    public Person(String name, String surname, String passport, Set<Integer> professionNumbers) {
+        this.name = name;
+        this.surname = surname;
+        this.passport = passport;
+        this.professionNumbers = professionNumbers;
+    }
+
 }

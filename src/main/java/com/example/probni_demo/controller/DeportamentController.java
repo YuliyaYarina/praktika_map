@@ -11,45 +11,39 @@ import java.util.Map;
 
 //@RestController
 //@RequestMapping("/departments")
-public class DeportamentController {
-
-    private final EmployeeService employeeService;
-
-    public DeportamentController(DeportamentServiceImpl employeeSelaryService, EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+//public class DeportamentController {
+//    private final EmployeeService employeeService;
+//    public DeportamentController(DeportamentServiceImpl employeeSelaryService, EmployeeService employeeService) {
+//        this.employeeService = employeeService;
+//    }
 
 //        /departments/max-salary?departmentId=5
 //    @GetMapping("/max-salary")
-        public String maxSalary(@RequestParam Integer departmentId) {
-
-        return "Сотрудник с макс ЗП: " + minSalary(departmentId) ;
-    }
-
-// /departments/min-salary?departmentId=5
+//        public String maxSalary(@RequestParam Integer departmentId) {
+//
+//        return "Сотрудник с макс ЗП: " + minSalary(departmentId) ;
+//    }
+//
+//// /departments/min-salary?departmentId=5
 //    @GetMapping("/min-salary")
-    public String minSalary(@RequestParam Integer departmentId) {
-
-        return "Сотрудник с мин ЗП: " + minSalary(departmentId);
-    }
-
-///departments/all?departmentId=5
+//    public String minSalary(@RequestParam Integer departmentId) {
+//
+//        return "Сотрудник с мин ЗП: " + minSalary(departmentId);
+//    }
+//
+/////departments/all?departmentId=5
 //    @GetMapping("/all")
-    public String allSelary(@RequestParam Integer departmentId) {
-
-        return " Все сотрудники по отделу";
-    }
-
+//    public String allSelary(@RequestParam Integer departmentId) {
+//
+//        return " Все сотрудники по отделу";
+//    }
+//
 //    @GetMapping("/all")
-    public String all() {
-
-        return " Все сотрудники по отделам";
-    }
-
-
+//    public String all() {
+//
+//        return " Все сотрудники по отделам";
+//    }
 
 
 
-
-
-    }
+//    }

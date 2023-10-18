@@ -7,6 +7,7 @@ import com.example.probni_demo.service.PersonService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -22,7 +23,7 @@ public class PersonServiceImpl implements PersonService {
                     "Люк",
                     "Бессон",
                     "54321",
-                    3),
+                    0),
             "41232",
             new Person(
                     "Жерар",
@@ -53,14 +54,17 @@ public class PersonServiceImpl implements PersonService {
             "актер",4
     ));
 
+    @Override
     public List<Person> getPersonsByProfession(Integer professionNumber){
         List<Person> result = new ArrayList<>();
-        for (Person person : persons.values()) {
+        for (var person : persons.values()) {
             if (person.getProfessionNumbers().contains(professionNumber)) {
                 result.add(person);
             }
         }
-        return result;
+        return persons.values().stream()
+                .filter(e -> e.getProfessionNumbers().contains(professionNumber))
+                .collect(Collectors.toList());
     }
 @Override
     public List<Person> getPersonsByProfessions(List<Integer> professionNumbers){
