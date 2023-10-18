@@ -44,13 +44,35 @@ public class PersonServiceImpl implements PersonService {
                     "2345",
                     4)
     ));
-    List<String> professions = new ArrayList<>(List.of(
-            "безработный",
-            "водитель",
-            "плотник",
-            "столяр",
-            "актер"
+
+    Map<String,Integer> professionCodes = new  HashMap(Map.of(
+            "безработный", 0,
+            "водитель",1,
+            "плотник",2,
+            "столяр",3,
+            "актер",4
     ));
+
+    public List<Person> getPersonsByProfession(Integer professionNumber){
+        List<Person> result = new ArrayList<>();
+        for (Person person : persons.values()) {
+            if (person.getProfessionNumbers().contains(professionNumber)) {
+                result.add(person);
+            }
+        }
+        return result;
+    }
+@Override
+    public List<Person> getPersonsByProfessions(List<Integer> professionNumbers){
+        List<Person> result = new ArrayList<>();
+        for (Person person: persons.values()) {
+            if (person.getProfessionNumbers().containsAll(professionNumbers)) {
+                result.add(person);
+            }
+        }
+        return result;
+    }
+
 
     @Override
     public void addPerson(Person person) {
@@ -83,7 +105,7 @@ public class PersonServiceImpl implements PersonService {
     public String getProfessionNames(Set<Integer> professionNumbers) {
         String result = "";
         for (Integer professionNumber : professionNumbers) {
-            result = result + " " + professions.get(professionNumber);
+            result = result + " " + professionCodes.get(professionNumber);
         }
         return result;
     }

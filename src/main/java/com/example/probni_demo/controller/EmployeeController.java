@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.List;
-//@RestController
-//@RequestMapping("/employee")
+@RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -21,20 +22,20 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-//    @GetMapping
-    public List<Employee> allEmployee() {
-        return employeeService.allEmployee();
+    @GetMapping
+    public Collection<Employee> allEmployee() {
+        return employeeService.allEmployee().values();
     }
-//    @GetMapping("/add")
-    public String addEmployee(@RequestParam String firstName,
-                              @RequestParam String lastName,
+    @GetMapping("/add")
+    public String addEmployee(@RequestParam String name,
+                              @RequestParam String surname,
                               @RequestParam Integer selary,
                               @RequestParam Integer department
     ){
 
         Employee employee = new Employee(
-                firstName,
-                lastName,
+                name,
+                surname,
                 selary,
                 department
         );
@@ -46,22 +47,22 @@ public class EmployeeController {
             return "Привышен лимит сотрудников";
         }
         final String emplN = ""
-                + employee.getLastName() + " "
-                + employee.getLastName() + " "
+                + employee.getSurname() + " "
+                + employee.getSurname() + " "
                 + employee.getSelary() + " "
                 + employee.getDepartment();
         return emplN;
     }
 
-//    @GetMapping("/remove")
-    public String removeEmployee(@RequestParam String firstName,
-                                 @RequestParam String lastName,
+    @GetMapping("/remove")
+    public String removeEmployee(@RequestParam String name,
+                                 @RequestParam String surname,
                                  @RequestParam Integer selary,
                                  @RequestParam Integer department
     ){
         Employee employee = new Employee(
-                firstName,
-                lastName,
+                name,
+                surname,
                 selary,
                 department
         );
@@ -72,22 +73,22 @@ public class EmployeeController {
             return "Удаляемого сотрудника и так нет";
         }
         final String emplN = ""
-                + employee.getLastName() + " "
-                + employee.getLastName() + " "
+                + employee.getSurname() + " "
+                + employee.getSurname() + " "
                 + employee.getSelary() + " "
                 + employee.getDepartment();
         return emplN;
     }
 
-//    @GetMapping("/find")
-    public String findEmployee(@RequestParam String firstName,
-                               @RequestParam String lastName,
+    @GetMapping("/find")
+    public String findEmployee(@RequestParam String name,
+                               @RequestParam String surname,
                                @RequestParam Integer selary,
                                @RequestParam Integer department
     ){
         Employee employee = new Employee(
-                firstName,
-                lastName,
+                name,
+                surname,
                 selary,
                 department
         );
@@ -97,8 +98,8 @@ public class EmployeeController {
             return "сотрудника нет";
         }
         final String emplN = ""
-                + employee.getLastName() + " "
-                + employee.getLastName() + " "
+                + employee.getSurname() + " "
+                + employee.getSurname() + " "
                 + employee.getSelary() + " "
                 + employee.getDepartment();
         return emplN;

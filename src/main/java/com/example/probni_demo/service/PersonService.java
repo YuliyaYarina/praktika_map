@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 public interface PersonService {
+    List<Person> getPersonsByProfessions(List<Integer> professionNumbers);
+
     void addPerson(Person person);
 
     void addProfession(String passport, Integer profession);
