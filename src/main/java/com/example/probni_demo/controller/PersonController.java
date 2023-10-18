@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/person")
@@ -45,9 +48,31 @@ public class PersonController {
         personService.addPerson(person);
         return "Person added";
     }
-//@GetMapping("/get")
-//    public void getByProfessions() {
-//        personService.getPersonsByProfessions(List.of(1,3));
+@GetMapping("/by-profession")
+    public String getByProfessions(@RequestParam int profession) {
+        final List<Person> personsByProfession = personService.getPersonsByProfession(profession);
+//        String forPassport = null;
+//
+//    for (final Person person : personByProfession) {
+//        final String passport = person.getPassport();
+//        if (passport.startsWith("4")) {
+//            forPassport = "<" + person.getPassport() + ">";
+//        }
 //    }
+//    if (forPassport == null) {
+//        throw new RuntimeException("Person not found");
+//    }
+
+    final Optional<String> passport = personsByProfession.stream()
+            .map(e -> e.getPassport())
+            .filter(p-> p.startsWith("4"))
+            .map(p -> "<" + p + ">")
+//            .collect(Collectors.toList());
+            .findAny()
+            ;
+
+
+    return passport.orElseThrow(() -> new RuntimeException("Person not found"));
+    }
 
 }
