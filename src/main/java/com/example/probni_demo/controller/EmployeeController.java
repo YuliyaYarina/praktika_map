@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -22,17 +23,23 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> allEmployee() {
+    public Collection<Employee> allEmployee() {
         return employeeService.allEmployee();
     }
+
+//    employee/add?firstName=li&lastName=lo&selary=10000&department=5
     @GetMapping("/add")
     public String addEmployee(@RequestParam String firstName,
-                              @RequestParam String lastName
+                              @RequestParam String lastName,
+                              @RequestParam Integer selary,
+                              @RequestParam Integer department
     ){
 
         Employee employee = new Employee(
                 firstName,
-                lastName
+                lastName,
+                selary,
+                department
         );
         try {
         employeeService.addEmployee(employee);
@@ -43,18 +50,24 @@ public class EmployeeController {
         }
         final String emplN = ""
                 + employee.getLastName() + " "
-                + employee.getLastName();
+                + employee.getLastName() + " "
+                + employee.getSelary() + " "
+                + employee.getDepartment();
         return emplN;
+
     }
 
     @GetMapping("/remove")
-    public String removeEmployee(@RequestParam
-                                 String firstName,
-                                 String lastName
+    public String removeEmployee(@RequestParam String firstName,
+                                 @RequestParam String lastName,
+                                 @RequestParam Integer selary,
+                                 @RequestParam Integer department
     ){
         Employee employee = new Employee(
                 firstName,
-                lastName
+                lastName,
+                selary,
+                department
         );
 
         try {
@@ -63,19 +76,24 @@ public class EmployeeController {
             return "Удаляемого сотрудника и так нет";
         }
         final String emplN = ""
-                + employee.getFirstName() + " "
-                + employee.getLastName();
+                + employee.getLastName() + " "
+                + employee.getLastName() + " "
+                + employee.getSelary() + " "
+                + employee.getDepartment();
         return emplN;
     }
 
     @GetMapping("/find")
-    public String findEmployee(@RequestParam
-                                 String firstName,
-                               String lastName
+    public String findEmployee(@RequestParam String firstName,
+                               @RequestParam String lastName,
+                               @RequestParam Integer selary,
+                               @RequestParam Integer department
     ){
         Employee employee = new Employee(
                 firstName,
-                lastName
+                lastName,
+                selary,
+                department
         );
         try {
             employeeService.searchEmployee(employee);
@@ -83,9 +101,15 @@ public class EmployeeController {
             return "сотрудника нет";
         }
         final String emplN = ""
-                + employee.getFirstName() + " "
-                + employee.getLastName();
+                + employee.getLastName() + " "
+                + employee.getLastName() + " "
+                + employee.getSelary() + " "
+                + employee.getDepartment();
         return emplN;
 
+    }
+    @GetMapping("/all")
+    public Collection<Employee> all() {
+        return employeeService.allEmployee();
     }
 }

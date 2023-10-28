@@ -1,17 +1,18 @@
-package com.example.probni_demo.service;
+package com.example.probni_demo.service.impl;
 
 import com.example.probni_demo.domain.Employee;
 import com.example.probni_demo.exceptions.EmployeeAlreadyAddedException;
 import com.example.probni_demo.exceptions.EmployeeNotFoundException;
 import com.example.probni_demo.exceptions.EmployeeStorageIsFullException;
+import com.example.probni_demo.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
-    private final int STORAGE_SIZE =3;
+public class EmployeeServiceImpl implements EmployeeService {
+    private final int STORAGE_SIZE =5;
    private final List<Employee> employees = new ArrayList<>();
 
     @Override

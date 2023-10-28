@@ -1,9 +1,10 @@
-package com.example.probni_demo.service;
+package com.example.probni_demo.service.impl;
 
 import com.example.probni_demo.domain.Driver;
 import com.example.probni_demo.domain.Person;
 import com.example.probni_demo.domain.TruskDriver;
 import com.example.probni_demo.exceptions.BadPersonNumberException;
+import com.example.probni_demo.service.PersonService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
