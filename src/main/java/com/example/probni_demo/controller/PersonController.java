@@ -20,7 +20,6 @@ public class PersonController {
     public String getPersonInfo(@RequestParam String passport){
         return personService.getPersonByPassport(passport);
     }
-
     @GetMapping("/profession/add")
     public String addProfession(@RequestParam String passport,
                                 @RequestParam Integer profession){

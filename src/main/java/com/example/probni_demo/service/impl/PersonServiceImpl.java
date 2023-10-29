@@ -52,10 +52,10 @@ public class PersonServiceImpl implements PersonService {
             "столяр",3,
             "актер",4
     ));
-
+    @Override
     public List<Person> getPersonsByProfession(Integer professionNumber){
         List<Person> result = new ArrayList<>();
-        for (Person person : persons.values()) {
+        for (var person : persons.values()) {
             if (person.getProfessionNumbers().contains(professionNumber)) {
                 result.add(person);
             }
@@ -72,7 +72,6 @@ public class PersonServiceImpl implements PersonService {
         }
         return result;
     }
-
     @Override
     public void addPerson(Person person) {
         persons.put(person.getPassport(), person);

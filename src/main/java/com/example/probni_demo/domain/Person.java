@@ -1,7 +1,5 @@
 package com.example.probni_demo.domain;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.*;
 
 public class Person {
@@ -20,15 +18,24 @@ public class Person {
     public String getName() {
         return name;
     }
+
     public String getSurname() {
         return surname;
     }
+
     public String getPassport() {
         return passport;
     }
 
     public Set<Integer> getProfessionNumbers() {
         return professionNumbers;
+    }
+
+    public Person(String name, String surname, String passport, Set<Integer> professionNumbers) {
+        this.name = name;
+        this.surname = surname;
+        this.passport = passport;
+        this.professionNumbers = professionNumbers;
     }
 
 }
