@@ -1,94 +1,46 @@
 package com.example.probni_demo.service.impl;
 
 import com.example.probni_demo.domain.Employee;
-import com.example.probni_demo.service.EmployeeSelaryService;
+import com.example.probni_demo.service.DeportamentService;
+import com.example.probni_demo.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Stream;
-//@Service
-public class DeportamentServiceImpl
-        implements EmployeeSelaryService
-{
+import java.util.stream.Collectors;
 
-    private final List<Employee> deportament = new ArrayList<>();
+import static java.util.Collections.min;
 
-@Override
-    public List<Integer> maxSalary(Integer departmentId){
+@Service
+public class DeportamentServiceImpl implements DeportamentService {
+    private EmployeeService employeeService;
+    public DeportamentServiceImpl(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+    @Override
+    public Optional<Employee> maxSalary(int departmentId){
+        return employeeService.allEmployee().stream()
+                .filter(e -> e.getDepartment()==departmentId)
+                .max(Comparator.comparingInt(Employee::getSelary));
 
-    int max = Stream.of(departmentId)
-            .max(Comparator.naturalOrder())
-            .get();
-//        Map<Integer, Integer> deportament = new HashMap<>();
-//
-//        Employee employee = null;
-//        int maxSalary = Integer.MIN_VALUE;
-//        for (Employee emp: deportament) {
-//            if (emp.getSelary() > maxSalary) {
-//                maxSalary = emp.getSelary();
-//                employee = emp;
-//            }
-//        }
-//        return departmentId;
-    return Collections.singletonList(max);
+    }
+    @Override
+    public Optional<Employee> minSalary(int departmentId) {
+        return employeeService.allEmployee().stream()
+                .filter(e -> e.getDepartment()==departmentId)
+                .min(Comparator.comparingInt(Employee::getSelary));
     }
 
-//    @Override
-//    public Map<Integer,Integer> minSalary(Integer departmentId) {
-//
-//    return departmentId;
-//    }
-//
-//    @Override
-//    public Map<Integer,Integer> allSalary(Integer departmentId) {
-//
-//
-//    }
-//
-//    @Override
-//    public Map<Integer,Integer> all(){
-//
-//        for (Map.Entry<Integer, Integer> contact: deportament.entrySet()) {
-//            System.out.println("Контакт " + contact.getKey() + ": " + contact.getValue());
-//        }
-//    }
-//
-//
-//    private static void printInfoAboutEmployees() {
-//        for (Employee employee: EMPLOYEES) {
-//            System.out.println(employee);
-//        }
-//    }
-//
-//    private static int calculateTotalSalaries() {
-//        int sum = 0;
-//        for (Employee employee: EMPLOYEES) {
-//            sum += employee.getSelary();
-//        }
-//        return sum;
-//    }
-//
-//    private static Employee findEmployeeWitMinSalary() {
-//        Employee employee = null;
-//        int minSalary = Integer.MAX_VALUE;
-//        for (Employee emp: EMPLOYEES) {
-//            if (emp.getSelary() < minSalary) {
-//                minSalary = emp.getSelary();
-//                employee = emp;
-//            }
-//        }
-//        return employee;
-//    }
-//
-//
-//    private static double findAverageSalary() {
-//        return  calculateTotalSalaries() / (double) EMPLOYEES.length;
-//    }
-//
-//    private static void printFullNameOfEmployees() {
-//        for (Employee employee: EMPLOYEES) {
-//            System.out.println(employee.getFullName());
-//        }
-//    }
+    @Override
+    public List<Employee> allSalary(int departmentId) {
+        return employeeService.allEmployee().stream()
+                .filter(e -> e.getDepartment()==departmentId)
+                .toList();
+    }
+    @Override
+    public Map<Integer,List<Employee>> all() {
+        return employeeService.allEmployee().stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+
+    }
 
 }

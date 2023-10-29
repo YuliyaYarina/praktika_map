@@ -1,8 +1,9 @@
 package com.example.probni_demo.service;
 
+
 import com.example.probni_demo.domain.Employee;
 
-import java.util.Map;
+import java.util.List;
 
 public interface EmployeeService {
 
@@ -12,5 +13,7 @@ public interface EmployeeService {
 
     String searchEmployee(Employee employee);
 
-    Map<String, Employee> allEmployee();
+    List<Employee> allEmployee();
+
+    void validateInput(String firstName, String lastName);
 }

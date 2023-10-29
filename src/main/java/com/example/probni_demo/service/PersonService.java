@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface PersonService {
+
     List<Person> getPersonsByProfession(Integer professionNumber);
 
     List<Person> getPersonsByProfessions(List<Integer> professionNumbers);

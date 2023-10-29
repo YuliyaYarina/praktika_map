@@ -15,80 +15,87 @@ import java.util.List;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-
     private final EmployeeService employeeService;
-
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-
     @GetMapping
     public Collection<Employee> allEmployee() {
-        return employeeService.allEmployee().values();
+        return employeeService.allEmployee();
     }
+    //    employee/add?firstName=li&lastName=lo&selary=10000&department=5
     @GetMapping("/add")
-    public String addEmployee(@RequestParam String name,
-                              @RequestParam String surname,
+    public String addEmployee(@RequestParam String firstName,
+                              @RequestParam String lastName,
                               @RequestParam Integer selary,
                               @RequestParam Integer department
-    ){
+    ) {
+
+        employeeService.validateInput(firstName,lastName);
 
         Employee employee = new Employee(
-                name,
-                surname,
+                firstName,
+                lastName,
                 selary,
                 department
         );
+
         try {
-        employeeService.addEmployee(employee);
-        } catch ( EmployeeAlreadyAddedException e) {
+            employeeService.addEmployee(employee);
+        } catch (EmployeeAlreadyAddedException e) {
             return "Уже такой есть сотрудник";
         } catch (EmployeeStorageIsFullException b) {
             return "Привышен лимит сотрудников";
         }
+
         final String emplN = ""
-                + employee.getSurname() + " "
-                + employee.getSurname() + " "
+                + employee.getLastName() + " "
+                + employee.getLastName() + " "
                 + employee.getSelary() + " "
                 + employee.getDepartment();
-        return emplN;
+        return "Добавлен сотрудник : " + emplN;
+
     }
 
     @GetMapping("/remove")
-    public String removeEmployee(@RequestParam String name,
-                                 @RequestParam String surname,
+
+    public String removeEmployee(@RequestParam String firstName,
+                                 @RequestParam String lastName,
                                  @RequestParam Integer selary,
                                  @RequestParam Integer department
     ){
+        employeeService.validateInput(firstName,lastName);
+
         Employee employee = new Employee(
-                name,
-                surname,
+                firstName,
+                lastName,
                 selary,
                 department
         );
-
         try {
-        employeeService.removeEmployee(employee);
+            employeeService.removeEmployee(employee);
         } catch (EmployeeAlreadyAddedException e) {
             return "Удаляемого сотрудника и так нет";
         }
         final String emplN = ""
-                + employee.getSurname() + " "
-                + employee.getSurname() + " "
+                + employee.getLastName() + " "
+                + employee.getLastName() + " "
                 + employee.getSelary() + " "
                 + employee.getDepartment();
-        return emplN;
+        return "Удалён сотрудник: " + emplN;
     }
 
     @GetMapping("/find")
-    public String findEmployee(@RequestParam String name,
-                               @RequestParam String surname,
+    public String findEmployee(@RequestParam String firstName,
+                               @RequestParam String lastName,
                                @RequestParam Integer selary,
                                @RequestParam Integer department
     ){
+        employeeService.validateInput(firstName,lastName);
+
         Employee employee = new Employee(
-                name,
-                surname,
+                firstName,
+                lastName,
                 selary,
                 department
         );
@@ -98,11 +105,17 @@ public class EmployeeController {
             return "сотрудника нет";
         }
         final String emplN = ""
-                + employee.getSurname() + " "
-                + employee.getSurname() + " "
+                + employee.getLastName() + " "
+                + employee.getLastName() + " "
                 + employee.getSelary() + " "
                 + employee.getDepartment();
-        return emplN;
+        return "Найден: " + emplN;
 
+    }
+    @GetMapping("/all")
+    public String all() {
+
+        return "Все сотрудники:" +
+                " " + employeeService.allEmployee();
     }
 }

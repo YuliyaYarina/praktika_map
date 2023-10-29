@@ -4,96 +4,60 @@ import com.example.probni_demo.domain.Employee;
 import com.example.probni_demo.exceptions.EmployeeAlreadyAddedException;
 import com.example.probni_demo.exceptions.EmployeeNotFoundException;
 import com.example.probni_demo.exceptions.EmployeeStorageIsFullException;
+import com.example.probni_demo.exceptions.IvalidInputException;
 import com.example.probni_demo.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+import static org.apache.commons.lang3.StringUtils.isAlpha;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final int STORAGE_SIZE =6;
-    Map<String, Employee> employees = new HashMap<>(Map.of(
-            "12345",
-            new Employee(
-                    "Жан",
-                    "Рено",
-                    10000,
-                    2),
-            "54321",
-            new Employee(
-                    "Люк",
-                    "Бессон",
-                    15000,
-                    3),
-            "41232",
-            new Employee(
-                    "Жерар",
-                    "Депардье",
-                    16400,
-                    0),
-            "928374",
-            new Employee(
-                    "Джейсон",
-                    "Стетхем",
-                    21000,
-                    1),
-            "1000",
-            new Employee(
-                    "Жерар",
-                    "Депардье",
-                    18000,
-                    4)
-    ));
-
+    private final int STORAGE_SIZE =5;
+    private final List<Employee> employees = new ArrayList<>();
     @Override
     public Employee addEmployee(Employee employee) {
-
         if (employees.size() > STORAGE_SIZE ) {
             throw new EmployeeStorageIsFullException("Привышен лимит сотрудников");
         }
 
-        String fullName = getFullName(employee);
-
-        if (employees.containsKey(fullName)) {
+        if (employees.contains(employee)) {
             throw new EmployeeAlreadyAddedException("Уже такой есть сотрудник");
         }
 
-        employees.put(fullName, employee);
+        employees.add(employee);
+
         return employee;
     }
 
     @Override
     public Employee removeEmployee(Employee employee) {
-
-        String fullName = getFullName(employee);
-
-        if (!employees.containsKey(fullName)) {
+        if (!employees.contains(employee)) {
             throw new EmployeeAlreadyAddedException("Удаляемого сотрудника и так нет");
         }
-            employees.remove(employee);
-
+        employees.remove(employee);
         return employee;
     }
 
     @Override
     public String searchEmployee(Employee employee) {
 
-        String fullName = getFullName(employee);
-
-      if (employees.containsKey(fullName)){
-          return " сотрудник " + employee + " найден" ;
-      } else {
-          throw new EmployeeNotFoundException("Сoтрудник не найден");
-      }
+        if (employees.contains(employee)){
+            return " сотрудник " + employee + " найден" ;
+        } else {
+            throw new EmployeeNotFoundException("Сoтрудник не найден");
+        }
     }
-
     @Override
-    public Map<String, Employee> allEmployee() {
+    public List<Employee> allEmployee() {
         return employees;
     }
-
-    public String getFullName(Employee employee){
-        return employee.getName() + employee.getSurname();
+@Override
+public void validateInput(String firstName, String lastName){
+        if (!(isAlpha(firstName) && isAlpha(lastName))) {
+            throw new IvalidInputException();
+        }
     }
 
 }

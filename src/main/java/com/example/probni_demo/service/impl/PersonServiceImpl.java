@@ -1,14 +1,10 @@
 package com.example.probni_demo.service.impl;
-
 import com.example.probni_demo.domain.Driver;
 import com.example.probni_demo.domain.Person;
 import com.example.probni_demo.domain.TruskDriver;
 import com.example.probni_demo.service.PersonService;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
-import java.util.stream.Collectors;
-
 @Service
 public class PersonServiceImpl implements PersonService {
     Map<String, Person> persons = new HashMap<>(Map.of(
@@ -23,7 +19,7 @@ public class PersonServiceImpl implements PersonService {
                     "Люк",
                     "Бессон",
                     "54321",
-                    0),
+                    3),
             "41232",
             new Person(
                     "Жерар",
@@ -45,7 +41,6 @@ public class PersonServiceImpl implements PersonService {
                     "2345",
                     4)
     ));
-
     Map<String,Integer> professionCodes = new  HashMap(Map.of(
             "безработный", 0,
             "водитель",1,
@@ -62,11 +57,9 @@ public class PersonServiceImpl implements PersonService {
                 result.add(person);
             }
         }
-        return persons.values().stream()
-                .filter(e -> e.getProfessionNumbers().contains(professionNumber))
-                .collect(Collectors.toList());
+        return result;
     }
-@Override
+    @Override
     public List<Person> getPersonsByProfessions(List<Integer> professionNumbers){
         List<Person> result = new ArrayList<>();
         for (Person person: persons.values()) {
@@ -77,12 +70,11 @@ public class PersonServiceImpl implements PersonService {
         return result;
     }
 
-
     @Override
     public void addPerson(Person person) {
         persons.put(person.getPassport(), person);
     }
-@Override
+    @Override
     public void addProfession(String passport, Integer profession){
         Person person = persons.get(passport);
         if (person == null) {
@@ -90,12 +82,11 @@ public class PersonServiceImpl implements PersonService {
         }
         person.getProfessionNumbers().add(profession);
     }
-
     @Override
     public String getPersonByPassport(String passport) {
         final Person person = persons.get(passport);
         if (person == null) {
-        throw new RuntimeException("человек с таким номером паспорта не найден");
+            throw new RuntimeException("человек с таким номером паспорта не найден");
         }
         final String personDescripition = " "
                 + person.getName() + " "
@@ -104,7 +95,6 @@ public class PersonServiceImpl implements PersonService {
                 + getProfessionNames(person.getProfessionNumbers());
         return personDescripition;
     }
-
     @Override
     public String getProfessionNames(Set<Integer> professionNumbers) {
         String result = "";
@@ -113,5 +103,4 @@ public class PersonServiceImpl implements PersonService {
         }
         return result;
     }
-
 }
