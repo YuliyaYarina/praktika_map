@@ -2,8 +2,18 @@ package com.example.probni_demo.service;
 
 import com.example.probni_demo.domain.Person;
 
+import java.util.List;
+import java.util.Set;
+
 public interface PersonService {
-    String getPerson(Integer number);
+
+    List<Person> getPersonsByProfessions(List<Integer> professionNumbers);
 
     void addPerson(Person person);
+
+    void addProfession(String passport, Integer profession);
+
+    String getPersonByPassport(String passport);
+
+    String getProfessionNames(Set<Integer> professionNumbers);
 }

@@ -4,8 +4,6 @@ import com.example.probni_demo.domain.Employee;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public interface EmployeeService {
 
@@ -15,5 +13,7 @@ public interface EmployeeService {
 
     String searchEmployee(Employee employee);
 
-    Collection<Employee> allEmployee();
+    List<Employee> allEmployee();
+
+    void validateImport(String firstName, String lastName);
 }

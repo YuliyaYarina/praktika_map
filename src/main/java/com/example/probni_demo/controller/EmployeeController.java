@@ -35,12 +35,15 @@ public class EmployeeController {
                               @RequestParam Integer department
     ){
 
+        employeeService.validateImport(firstName, lastName);
+
         Employee employee = new Employee(
                 firstName,
                 lastName,
                 selary,
                 department
         );
+
         try {
         employeeService.addEmployee(employee);
         } catch ( EmployeeAlreadyAddedException e) {
@@ -48,21 +51,26 @@ public class EmployeeController {
         } catch (EmployeeStorageIsFullException b) {
             return "Привышен лимит сотрудников";
         }
+
         final String emplN = ""
                 + employee.getLastName() + " "
                 + employee.getLastName() + " "
                 + employee.getSelary() + " "
                 + employee.getDepartment();
-        return emplN;
+
+        return "Добавлен сотрудник : " + emplN;
 
     }
 
     @GetMapping("/remove")
+
     public String removeEmployee(@RequestParam String firstName,
                                  @RequestParam String lastName,
                                  @RequestParam Integer selary,
                                  @RequestParam Integer department
     ){
+        employeeService.validateImport(firstName, lastName);
+
         Employee employee = new Employee(
                 firstName,
                 lastName,
@@ -80,7 +88,7 @@ public class EmployeeController {
                 + employee.getLastName() + " "
                 + employee.getSelary() + " "
                 + employee.getDepartment();
-        return emplN;
+        return "Удалён сотрудник: " + emplN;
     }
 
     @GetMapping("/find")
@@ -89,6 +97,8 @@ public class EmployeeController {
                                @RequestParam Integer selary,
                                @RequestParam Integer department
     ){
+        employeeService.validateImport(firstName, lastName);
+
         Employee employee = new Employee(
                 firstName,
                 lastName,
@@ -105,11 +115,13 @@ public class EmployeeController {
                 + employee.getLastName() + " "
                 + employee.getSelary() + " "
                 + employee.getDepartment();
-        return emplN;
+        return "Найден: " + emplN;
 
     }
     @GetMapping("/all")
-    public Collection<Employee> all() {
-        return employeeService.allEmployee();
+    public String all() {
+
+        return "Все сотрудники:" +
+                " " + employeeService.allEmployee();
     }
 }
